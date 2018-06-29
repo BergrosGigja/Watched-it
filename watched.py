@@ -12,21 +12,23 @@ video = re.match(r'(.*)\.(' + end + ')$', file) #Check if the file is a video
 
 if video:
 	name = video.group(1).replace('.', ' ').strip() #Remove dots between words
-	print(video.group(2))
+
 	#Match TV shows with name format S00E00
-	#Match Movies with 1080p in title
 	tv = re.match(r'(.*)([S|s][0-9]{1,2}[E|e][0-9]{1,2})(.*)', name)
-	movie = re.match(r'(.*1080p)(.*)', name)
 
 	#Strip away unnecessary title information
+	#Create a folder with the TV show name
+	wtc = wtc + "\\" + tv.group(1).strip()
+	if not os.path.exists(wtc):
+		os.mkdir(wtc)
+
+	#Make sure this also happens if the file does not exist
+	name = tv.group(1) + tv.group(2).strip() + '.' + video.group(2).strip()
+
 	if tv:
 		#Create folder for TV show if it doesn't exist
 		if not os.path.exists(wtc + "\\" + tv.group(1).strip()):
-			wtc = wtc + "\\" + tv.group(1).strip()
-			os.mkdir(wtc)
-		name = tv.group(1) + tv.group(2).strip() + '.' + video.group(2).strip()
-	if movie:
-		name = movie.group(1).strip() + '.' + video.group(2).strip()
-
-	os.rename(dwl + "\\" + file, wtc + "\\" + name) #Move file
+			os.rename(dwl + "\\" + file, wtc + "\\" + name) #Move file
 	os.startfile(wtc + "\\" + name) #Open file
+else:
+	print("file not found")
