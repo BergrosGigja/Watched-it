@@ -10,7 +10,7 @@ file = argv[1]
 end = 'AVI|MKV|MP4|M4V|FLV|WMV|MPG' #File endings
 video = re.match(r'(.*)\.(' + end + ')$', file) #Check if the file is a video
 
-if video:
+if video and os.path.exists(file):
 	name = video.group(1).replace('.', ' ').strip() #Remove dots between words
 
 	#Match TV shows with name format S00E00
