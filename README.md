@@ -1,6 +1,6 @@
-# WatchedIt
+# WatchedIt :tv:
 
-Script to run in command prompt to sort TV show when you watch them.
+Script to run in command prompt to sort the TV show into the right folder when you watch them.
 
 ## Running
 
